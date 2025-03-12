@@ -1,4 +1,5 @@
 import React from "react";
+import { data } from "react-router-dom";
 
 const AddCoffee = () => {
 
@@ -7,16 +8,29 @@ const AddCoffee = () => {
         const form = event.target;
 
         const name = form.name.value;
-        const chef = form.chef.value;
+        const quantity = form.quantity.value;
         const supplier = form.supplier.value;
         const taste =form.taste.value;
         const category = form.category.value;
         const details = form.details.value;
         const photo = form.photo.value;
 
-        const coffees = {name, chef, supplier, taste , category, details, photo};
+        const newCoffee = {name, quantity, supplier, taste , category, details, photo};
          
-        console.log(coffees)
+        console.log(newCoffee)
+
+        // send data to the server
+        fetch('http://localhost:5000/coffee',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(newCoffee)
+        })
+        .then(res =>res.json())
+        .then(data =>{
+            console.log(data)
+        })
     }
   return (
     <div className="flex justify-center items-center bg-white min-h-screen">
@@ -34,7 +48,7 @@ const AddCoffee = () => {
           <div className="">
             <label htmlFor="coffeeName"> Name</label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2"
               type="text"
               name="name"
               id="coffeeName"
@@ -42,11 +56,11 @@ const AddCoffee = () => {
             />
           </div>
           <div>
-            <label htmlFor="idchef">Chef</label>
+            <label htmlFor="idchef">Available Quantity</label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2 "
               type="text"
-              name="chef"
+              name="quantity"
               id="idchef"
               placeholder="Enter coffee chef"
             />
@@ -58,7 +72,7 @@ const AddCoffee = () => {
           <div className="">
             <label htmlFor="idSupplier"> Supplier</label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2"
               type="text"
               name="supplier"
               id="idSupplier"
@@ -68,7 +82,7 @@ const AddCoffee = () => {
           <div>
             <label htmlFor="idTaste">Taste</label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2"
               type="text"
               name="taste"
               id="idTaste"
@@ -82,7 +96,7 @@ const AddCoffee = () => {
           <div className="">
             <label htmlFor="idCategory">Category </label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2"
               type="text"
               name="category"
               id="idCategory"
@@ -92,7 +106,7 @@ const AddCoffee = () => {
           <div>
             <label htmlFor="idDetails">Details</label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2"
               type="text"
               name="details"
               id="idDetails"
@@ -106,8 +120,8 @@ const AddCoffee = () => {
           <div className=" w-full">
             <label  htmlFor="idPhoto"> <span className="text-start">Photo</span></label>
             <input
-              className="bg-gray-300 px-5 rounded-lg w-full"
-              type="file"
+              className="bg-gray-300 px-5 rounded-lg w-full py-2"
+              type="text"
               name="photo"
               id="idPhoto"
               placeholder="Enter photo url"
