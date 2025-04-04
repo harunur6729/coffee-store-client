@@ -1,5 +1,5 @@
-import React from "react";
-import { data } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 const AddCoffee = () => {
 
@@ -30,6 +30,15 @@ const AddCoffee = () => {
         .then(res =>res.json())
         .then(data =>{
             console.log(data)
+
+            if(data.insertedID){
+                Swal.fire({
+                    title: 'success!',
+                    text: 'Coffee added successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+            }
         })
     }
   return (
