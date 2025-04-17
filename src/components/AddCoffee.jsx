@@ -31,7 +31,7 @@ const AddCoffee = () => {
         .then(data =>{
             console.log(data)
 
-            if(data.insertedID){
+            if(data.insertedId){
                 Swal.fire({
                     title: 'success!',
                     text: 'Coffee added successfully',

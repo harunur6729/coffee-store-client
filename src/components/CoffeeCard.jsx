@@ -1,7 +1,8 @@
-import { data } from "autoprefixer";
+// import { data } from "autoprefixer";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
   const { _id, name, quantity, supplier, taste, category, details, photo } =
     coffee;
 
@@ -19,8 +20,8 @@ const CoffeeCard = ({ coffee }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log("delete confirmed");
-        fetch(`http://localhost:5000/coffee/${_id}`,{
-          method:'delete',
+        fetch(`http://localhost:5000/coffee/${_id}`, {
+          method: "delete",
         })
           .then((res) => res.json())
           .then((data) => {
@@ -29,9 +30,11 @@ const CoffeeCard = ({ coffee }) => {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your Coffee has been deleted.",
-                icon: "success"
+                icon: "success",
               });
             }
+            const remaining = coffees.filter((cof) => cof._id !== _id);
+            setCoffees(remaining);
           });
       }
     });
@@ -55,7 +58,9 @@ const CoffeeCard = ({ coffee }) => {
 
           <div className="join join-vertical justify-evenly  p-2 ">
             <button className="btn btn-secondary join-item">view</button>
-            <button className="btn btn-success join-item">Edit</button>
+            <Link to={`updateCoffee/${_id}`}>
+              <button className="btn btn-success join-item">Edit</button>
+            </Link>
             <button
               onClick={() => handleDelete(_id)}
               className="btn btn-info join-item"
