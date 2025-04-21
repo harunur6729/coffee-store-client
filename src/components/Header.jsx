@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
 
     const links =[
         <Link key="home"  to="/"><li>Home</li></Link>,
-        <Link key="addCoffee" to="/addCoffee"><li>Add coffee</li></Link>
+        <Link key="addCoffee" to="/addCoffee"><li>Add coffee</li></Link>,
+        <Link key='users' to='/users'>Users</Link>
     ]
     return (
         <div>
@@ -19,15 +20,16 @@ const Header = () => {
         {links}
       </ul>
     </div>
-    <a className="btn btn-ghost normal-case text-xl"> Coffee</a>
+    <a className="btn btn-ghost normal-case text-xl"> Coffee House</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu gap-8 menu-horizontal px-1">
       {links}
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn">Button</a>
+  <div className="navbar-end gap-4">
+    <NavLink className='btn bg-success' to='/signin'>SignIn</NavLink>
+    <NavLink className='btn bg-secondary' to='/signup'>SignUp</NavLink>
   </div>
 </div>
         </div>
