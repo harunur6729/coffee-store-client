@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth/cordova';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth/cordova';
 import React, { Children, createContext, useState } from 'react';
 import { auth } from '../firebase/firebase.init';
 export const AuthContext = createContext(null)
@@ -12,10 +12,17 @@ const AuthProvider = ({children}) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
+    //for signin
+     const loginUser = (email, password) =>{
+        setLoading(true)
+        return signInWithEmailAndPassword(auth,email, password)
+     }
+
     const userInfo = {
         user,
         loading,
         createUser,
+        loginUser
         
     }
     return (
