@@ -1,49 +1,58 @@
-import Swal from 'sweetalert2'
-
+import Swal from "sweetalert2";
 
 const AddCoffee = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
 
-    const handleSubmit=(event)=>{
-        event.preventDefault();
-        const form = event.target;
+    const name = form.name.value;
+    const quantity = form.quantity.value;
+    const supplier = form.supplier.value;
+    const taste = form.taste.value;
+    const category = form.category.value;
+    const details = form.details.value;
+    const photo = form.photo.value;
 
-        const name = form.name.value;
-        const quantity = form.quantity.value;
-        const supplier = form.supplier.value;
-        const taste =form.taste.value;
-        const category = form.category.value;
-        const details = form.details.value;
-        const photo = form.photo.value;
+    const newCoffee = {
+      name,
+      quantity,
+      supplier,
+      taste,
+      category,
+      details,
+      photo,
+    };
 
-        const newCoffee = {name, quantity, supplier, taste , category, details, photo};
-         
-        console.log(newCoffee)
+    console.log(newCoffee);
 
-        // send data to the server
-        fetch('http://localhost:5000/coffee',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
-            },
-            body:JSON.stringify(newCoffee)
-        })
-        .then(res =>res.json())
-        .then(data =>{
-            console.log(data)
+    // send data to the server
+    fetch("https://coffee-store-server-eight-hazel.vercel.app/coffee", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
 
-            if(data.insertedId){
-                Swal.fire({
-                    title: 'success!',
-                    text: 'Coffee added successfully',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                  })
-            }
-        })
-    }
+        if (data.insertedId) {
+          Swal.fire({
+            title: "success!",
+            text: "Coffee added successfully",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
+        }
+      });
+  };
   return (
     <div className="flex justify-center items-center bg-white min-h-screen">
-      <form onSubmit={handleSubmit} className=" text-black  text-center p-8 w-1/2 bg-red-100 rounded-md ">
+      <form
+        onSubmit={handleSubmit}
+        className=" text-black  text-center p-8 w-1/2 bg-red-100 rounded-md "
+      >
         <h1 className="text-3xl font-semibold">Add New Coffee</h1>
         <p>
           It is a long established fact that a reader will be distraceted by the
@@ -127,7 +136,10 @@ const AddCoffee = () => {
         {/* Photo field */}
         <div className="md:flex md:justify-center gap-20 mt-8  text-start">
           <div className=" w-full">
-            <label  htmlFor="idPhoto"> <span className="text-start">Photo</span></label>
+            <label htmlFor="idPhoto">
+              {" "}
+              <span className="text-start">Photo</span>
+            </label>
             <input
               className="bg-gray-300 px-5 rounded-lg w-full py-2"
               type="text"
@@ -136,18 +148,18 @@ const AddCoffee = () => {
               placeholder="Enter photo url"
             />
           </div>
-          
         </div>
 
         {/* Add coffee field */}
         <div className="md:flex md:justify-center gap-20 mt-8  ">
           <div className=" w-full">
-            <input className="bg-amber-600 w-full font-semibold rounded-full py-1 hover:bg-amber-400" type="submit" value="Add Coffee" />
+            <input
+              className="bg-amber-600 w-full font-semibold rounded-full py-1 hover:bg-amber-400"
+              type="submit"
+              value="Add Coffee"
+            />
           </div>
-          
         </div>
-
-        
       </form>
     </div>
   );

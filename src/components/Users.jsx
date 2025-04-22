@@ -18,26 +18,26 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-         
         //delete from the database
-        fetch(`http://localhost:5000/users/${id}`, {
-          method: "delete",
-        })
+        fetch(
+          `https://coffee-store-server-eight-hazel.vercel.app/users/${id}`,
+          {
+            method: "delete",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
-            if(data.deletedCount>0){
+            if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
-                icon: "success"
+                icon: "success",
               });
 
-              const remainingUsers = users.filter(user => user._id !== id);
-              setUsers(remainingUsers)
+              const remainingUsers = users.filter((user) => user._id !== id);
+              setUsers(remainingUsers);
             }
-            
           });
-       
       }
     });
   };
@@ -68,15 +68,13 @@ const Users = () => {
                 <td>{user.createdAt}</td>
                 <td>{user.lastSignInTime}</td>
                 <td>
+                  <button className="btn bg-secondary">Edit</button>
                   <button
-                    
-                    className="btn bg-secondary"
+                    onClick={() => handleUserDelete(user._id)}
+                    className="btn bg-primary"
                   >
-                    Edit
+                    Delete
                   </button>
-                  <button
-                  onClick={() => handleUserDelete(user._id)}
-                   className="btn bg-primary">Delete</button>
                   <button></button>
                 </td>
               </tr>
